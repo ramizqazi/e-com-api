@@ -1,0 +1,32 @@
+{
+  "name": "e-com-api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "set DEBUG=server:* && nodemon ./bin/www"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "cors": "^2.8.5",
+    "debug": "^4.3.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "helmet": "^5.0.2",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.5",
+    "morgan": "^1.10.0",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  }
+}
