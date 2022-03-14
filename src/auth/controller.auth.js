@@ -44,6 +44,7 @@ exports.register = async (req, res, next) => {
     }
   } catch (e) {
     next(e);
+    res.status(404).json({ message: e.message });
   }
 };
 
