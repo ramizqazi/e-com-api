@@ -6,11 +6,27 @@ const { paginate } = require('../util/pagination');
  */
 exports.getProducts = async (req, res, next) => {
   try {
-    const { limit = 5, next_cursor } = req.query;
+    const { limit = 5, next_cursor, category } = req.query;
+    const query = {};
+
+    if (category === 'men') {
+      query.category = 'men';
+    }
+    if (category === 'women') {
+      query.category = 'women';
+    }
+    if (category === 'electronics') {
+      query.category = 'electronics';
+    }
+    if (category === 'jewelry') {
+      query.category = 'jewelry';
+    }
 
     // Get products
     const response = await paginate(Product, limit, next_cursor, '_id', {
-      direction: 'asc',
+      query,
+      transformCursorToEncode: (c) => c.getTime(),
+      transformDecodedCursor: (c) => new Date(+c),
     });
 
     // Populate store
@@ -20,8 +36,7 @@ exports.getProducts = async (req, res, next) => {
         select: { name: 1 },
       },
     ]);
-    response.data = response.data.map((category) => category.toJSON());
-
+    response.data = response.data.map((product) => product.toJSON());
     res.status(200).json(response);
   } catch (e) {
     next(e);
