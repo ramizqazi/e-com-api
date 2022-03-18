@@ -31,6 +31,9 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: new Date(),
   },
+  wishList: [{
+    type: String,
+  }],
 });
 
 UserSchema.pre('save', function modifyPassword(next) {
@@ -68,6 +71,7 @@ UserSchema.methods.toJSON = function toJSON() {
     email: this.email,
     profile: this.profile,
     createdAt: this.createdAt,
+    wishList: this.wishList,
   };
 };
 
