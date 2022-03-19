@@ -1,4 +1,4 @@
-const { Product } = require('../modals');
+const { Product, Store } = require('../modals');
 const { paginate } = require('../util/pagination');
 
 /**
@@ -65,4 +65,36 @@ exports.getProduct = async (req, res, next) => {
         res.status(200).json(response);
       }
     });
+};
+
+/**
+ * GET /product/find
+ */
+exports.findProduct = async (req, res, next) => {
+  try {
+    const {
+      q = '',
+      limit = 10,
+    } = req.query;
+
+    const store = await Store.find({ name: { $regex: `.*${q}.*`, $options: 'i' } });
+
+    let products;
+
+    if (store[0]) {
+      products = await Product.find({ store: store[0]?._id }).limit(Number(limit));
+    } else {
+      products = await Product.find({ name: { $regex: `.*${q}.*`, $options: 'i' } })
+        .limit(Number(limit));
+    }
+
+    const response = {
+      ok: true,
+      data: products.map((item) => item.toJSON()),
+      next_cursor: '',
+    };
+    res.status(200).json(response);
+  } catch (e) {
+    next(e);
+  }
 };

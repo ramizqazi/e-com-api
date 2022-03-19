@@ -31,6 +31,10 @@ const StoreSchema = new Schema({
 }, { timestamps: true });
 
 StoreSchema.index({
+  name: 'text',
+});
+
+StoreSchema.index({
   category: 1,
   disabled: 1,
   type: 1,

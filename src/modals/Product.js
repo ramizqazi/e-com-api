@@ -64,6 +64,12 @@ ProductSchema.index({
   name: 'text',
 });
 
+ProductSchema.index({
+  store: {
+    name: 1,
+  },
+});
+
 ProductSchema.methods.toCustomerJSON = function toCustomerJSON() {
   return {
     id: this._id,
